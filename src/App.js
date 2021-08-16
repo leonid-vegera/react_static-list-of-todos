@@ -1,16 +1,24 @@
+/* eslint-disable*/
 import React from 'react';
 import './App.scss';
 
 import todos from './api/todos';
 import users from './api/users';
 
+import { TodoList } from './components/TodoList';
+
+//! в новый массив добавляем каждому объекту свойтво 
+//! юзер, котрое мы находим в массиве объектов users, если его id  совпадает с прописанным в todo id
+let preparedTodos = todos.map(todo => ({ ...todo, user: (users.find(user => user.id === todo.userId)) }));
+
 function App() {
   return (
     <div className="App">
       <h1>Static list of todos</h1>
       <p>
-        <span>Todos: </span>
-        {todos.length}
+        <TodoList
+          todos={preparedTodos}
+        />
       </p>
 
       <p>
